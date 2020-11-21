@@ -5,7 +5,7 @@ pull_requests:
 branches:
     only:
         - master
-configuration: Release
+build: off
 build_script:
     - cmd: dotnet build -c Release /m
 artifacts:
@@ -19,4 +19,5 @@ for:
           VERCEL_TOKEN:
               secure: InPNy6LbDQf4YYKZAVYpTbO0uRIKI6D3Dt+nHvOVvS8=
       on_success:
+          - cd _publish
           - now --prod -c -C -t %VERCEL_TOKEN%
