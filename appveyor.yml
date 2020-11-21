@@ -19,5 +19,5 @@ for:
           VERCEL_TOKEN:
               secure: InPNy6LbDQf4YYKZAVYpTbO0uRIKI6D3Dt+nHvOVvS8=
       on_success:
-          - cd _publish
-          - now --prod -c -C -t %VERCEL_TOKEN%
+          - ps: cd _publish
+          - ps: if ($env:VERCEL_TOKEN) {now --prod -c -C -t $env:VERCEL_TOKEN}
