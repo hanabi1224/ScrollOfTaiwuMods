@@ -5,19 +5,16 @@ pull_requests:
 branches:
     only:
         - main
+environment:
+    VERCEL_TOKEN:
+        secure: InPNy6LbDQf4YYKZAVYpTbO0uRIKI6D3Dt+nHvOVvS8=
+init:
+    - ps: if ($env:VERCEL_TOKEN) { yarn global add vercel }
 build: off
 build_script:
     - cmd: dotnet build -c Release /m
 artifacts:
     - path: '_publish\**\*.zip'
       name: zip
-for:
-    - branches:
-          only:
-              - main
-      environment:
-          VERCEL_TOKEN:
-              secure: InPNy6LbDQf4YYKZAVYpTbO0uRIKI6D3Dt+nHvOVvS8=
-      on_success:
-          - ps: cd _publish
-          - ps: if ($env:VERCEL_TOKEN) {now --prod -c -C -t $env:VERCEL_TOKEN}
+on_success:
+    - ps: if ($env:VERCEL_TOKEN) { vercel _publish --prod -c -C -t $env:VERCEL_TOKEN }
