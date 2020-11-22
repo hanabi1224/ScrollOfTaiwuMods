@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace UnityModManagerNet
 {
-    public static class ModLoggerExtensions
+    internal static class ModLoggerExtensions
     {
         private static readonly JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings
         {
