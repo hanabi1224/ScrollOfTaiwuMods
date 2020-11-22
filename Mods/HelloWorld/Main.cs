@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using Harmony12;
 using UnityEngine;
@@ -54,22 +55,55 @@ namespace HelloWorld
 
             GUILayout.EndHorizontal();
             GUILayout.EndVertical();
+
+#if DEBUG
+            GUILayout.BeginVertical("Box");
+            GUILayout.BeginHorizontal("Box");
+            if (GUILayout.Button("Dump DateFile"))
+            {
+                var msgData = DateFile.instance;
+                if (DateFile.instance != null)
+                {
+                    var publicProperties = typeof(DateFile).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                    if (publicProperties?.Length > 0)
+                    {
+                        foreach (var publicProperty in publicProperties)
+                        {
+                            try
+                            {
+                                var value = publicProperty.GetValue(DateFile.instance);
+                                Logger.DebugFileWriteJson(publicProperty.Name, value);
+                            }
+                            catch
+                            {
+                            }
+                        }
+                    }
+
+                    var publicFields = typeof(DateFile).GetFields(BindingFlags.Public | BindingFlags.Instance);
+                    if (publicFields?.Length > 0)
+                    {
+                        foreach (var publicField in publicFields)
+                        {
+                            try
+                            {
+                                var value = publicField.GetValue(DateFile.instance);
+                                Logger.DebugFileWriteJson(publicField.Name, value);
+                            }
+                            catch
+                            {
+                            }
+                        }
+                    }
+                }
+            }
+            GUILayout.EndHorizontal();
+            GUILayout.EndVertical();
+#endif
         }
 
         public static bool OnToggle(UnityModManager.ModEntry modEntry, bool value)
         {
-            var msgData = DateFile.instance?.massageDate;
-            if (msgData?.Count > 0)
-            {
-                Logger.DebugFileWriteJson("massageDate", msgData);
-            }
-
-            var presetData = DateFile.instance?.presetitemDate;
-            if (msgData?.Count > 0)
-            {
-                Logger.DebugFileWriteJson("presetData", presetData);
-            }
-
             Enabled = value;
             return true;
         }
