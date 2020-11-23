@@ -16,7 +16,7 @@ build_script:
     - cmd: dotnet build -c Release /m
     - cmd: pushd .
     - cmd: cd tools\cricket_fight_simulator
-    - cmd: yarn build
+    - cmd: yarn && yarn build
     - cmd: popd
 artifacts:
     - path: '_publish\**\*.zip'
