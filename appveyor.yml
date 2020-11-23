@@ -14,10 +14,9 @@ init:
 build: off
 build_script:
     - cmd: dotnet build -c Release /m
-    - cmd: pushd .
-    - cmd: cd tools\cricket_fight_simulator
+    - cmd: cd %APPVEYOR_BUILD_FOLDER%\tools\cricket_fight_simulator
     - cmd: yarn && yarn build
-    - cmd: popd
+    - cmd: cd %APPVEYOR_BUILD_FOLDER%
 artifacts:
     - path: '_publish\**\*.zip'
       name: zip
