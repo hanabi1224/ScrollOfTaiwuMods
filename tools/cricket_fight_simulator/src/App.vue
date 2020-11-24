@@ -27,7 +27,9 @@
                                         </a-popover>                                        
                                     <!-- </CricketToolTipComponent> -->
                                 </div>
-                                <CricketImageComponent slot="avatar" :className="item.imageUrl" :size="50"></CricketImageComponent>
+                                <CricketToolTipComponent slot="avatar" :cricket="item">
+                                    <CricketImageComponent :className="item.imageUrl" :size="50"></CricketImageComponent>
+                                </CricketToolTipComponent>                                
                             </a-list-item-meta>
                         </a-list-item>
                     </a-list>
