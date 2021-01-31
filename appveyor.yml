@@ -12,8 +12,9 @@ cache:
     - '%USERPROFILE%\.nuget\packages'
     - '%USERPROFILE%\.npm'
     - '%USERPROFILE%\.yarn'
+    - '%USERPROFILE%\.cache\yarn'
 init:
-    - yarn config set cache-folder %USERPROFILE%\.yarn
+    # - yarn config set cache-folder %USERPROFILE%\.yarn
     - ps: Install-Product node lts
     - ps: if ($env:VERCEL_TOKEN) { yarn global add vercel }
 build: off
