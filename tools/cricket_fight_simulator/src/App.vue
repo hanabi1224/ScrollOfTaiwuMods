@@ -1,41 +1,51 @@
 <template>
   <div 
     v-drag-and-drop:options="dragDropOptions" 
-    class="main">
+    class="main"
+  >
     <div class="left">
       <div class="container">
         <div class="search-box">
           <a-input 
             v-model.lazy="filterText" 
-            placeholder="查找促织" />
-          <div class="note">从列表拖动至右方图标更换促织</div>
+            placeholder="查找促织"
+          />
+          <div class="note">
+            从列表拖动至右方图标更换促织
+          </div>
         </div>
         <div class="ququ-list">
           <a-list 
             :data-source="displayCricketData" 
-            :rowKey="(c) => c.name" 
-            item-layout="horizontal">
+            :row-key="(c) => c.name" 
+            item-layout="horizontal"
+          >
             <a-list-item 
-              slot-scope="item" 
               slot="renderItem" 
-              class="ququ-list-item">
+              slot-scope="item" 
+              class="ququ-list-item"
+            >
               <a-list-item-meta>
                 <div 
                   slot="description" 
-                  class="desc">
+                  class="desc"
+                >
                   <!-- <CricketToolTipComponent :cricket="item"> -->
                   <a-popover 
                     :title="item.name" 
-                    trigger="click">
+                    trigger="click"
+                  >
                     <div slot="content">
                       <a-button 
-                        @click="setCricketHome(item)" 
-                        type="danger">
+                        type="danger" 
+                        @click="setCricketHome(item)"
+                      >
                         设置为红方
                       </a-button>
                       <a-button 
-                        @click="setCricketAway(item)" 
-                        type="primary">
+                        type="primary" 
+                        @click="setCricketAway(item)"
+                      >
                         设置为蓝方
                       </a-button>
                     </div>
@@ -46,11 +56,13 @@
                   <!-- </CricketToolTipComponent> -->
                 </div>
                 <CricketToolTipComponent 
-                  :cricket="item" 
-                  slot="avatar">
+                  slot="avatar" 
+                  :cricket="item"
+                >
                   <CricketImageComponent 
-                    :className="item.imageUrl" 
-                    :size="50" />
+                    :class-name="item.imageUrl" 
+                    :size="50"
+                  />
                 </CricketToolTipComponent>
               </a-list-item-meta>
             </a-list-item>
@@ -64,91 +76,124 @@
           <CricketCardComponent
             v-if="cricketHome"
             :cricket="cricketHome"
-            :refreshToken="refreshTokenHome"
+            :refresh-token="refreshTokenHome"
             side="red"
           />
           <div 
             v-if="!cricketHome" 
-            class="drop-box">从左边列表拖动促织至此区域</div>
+            class="drop-box"
+          >
+            从左边列表拖动促织至此区域
+          </div>
         </div>
         <div>
           <div class="button-box">
             <a-button 
               :disabled="isFightButtonDisabled" 
-              @click="doFight" 
-              type="primary">模拟决斗</a-button>
-            <br >
+              type="primary" 
+              @click="doFight"
+            >
+              模拟决斗
+            </a-button>
+            <br>
             <a-button 
               :disabled="isFightButtonDisabled" 
-              @click="doFightBatch(1000)" 
-              type="dashed"
-            >模拟1000场决斗</a-button
+              type="dashed" 
+              @click="doFightBatch(1000)"
             >
-            <br >
+              模拟1000场决斗
+            </a-button>
+            <br>
             <a-button 
               :disabled="isFightButtonDisabled" 
-              @click="doFightBatch(10000)" 
-              type="dashed"
-            >模拟10000场决斗</a-button
+              type="dashed" 
+              @click="doFightBatch(10000)"
             >
-            <br >
+              模拟10000场决斗
+            </a-button>
+            <br>
             <a-button-group>
               <a-popconfirm 
-                @confirm="onFindRivalsConfirm(true)" 
                 ok-text="确定" 
-                cancel-text="取消">
+                cancel-text="取消" 
+                @confirm="onFindRivalsConfirm(true)"
+              >
                 <template slot="title">
                   <div style="max-width: 20vw">
                     搜索品级与类型
-                    <br >
+                    <br>
                     <!-- <a-checkbox v-model="findRivalOptionCheckBaBai" style="color:red;">八败(容易卡死慎选)</a-checkbox> -->
                     <a-checkbox-group
                       v-model="findRivalFilters"
                       :options="findRivalOptions"
-                      :defaultValue="findRivalOptionsDefault"
+                      :default-value="findRivalOptionsDefault"
                     />
-                    <a-checkbox v-model="searchMomentum">气势型</a-checkbox>
-                    <a-checkbox v-model="searchPlier">牙钳型</a-checkbox>
-                    <a-checkbox v-model="searchWresling">角力型</a-checkbox>
-                    <a-checkbox v-model="searchAverage">均衡型</a-checkbox>
-                </div></template
-                >
+                    <a-checkbox v-model="searchMomentum">
+                      气势型
+                    </a-checkbox>
+                    <a-checkbox v-model="searchPlier">
+                      牙钳型
+                    </a-checkbox>
+                    <a-checkbox v-model="searchWresling">
+                      角力型
+                    </a-checkbox>
+                    <a-checkbox v-model="searchAverage">
+                      均衡型
+                    </a-checkbox>
+                  </div>
+                </template>
                 <a-button 
                   :disabled="isFightButtonDisabled" 
-                  type="danger">找克星</a-button>
+                  type="danger"
+                >
+                  找克星
+                </a-button>
               </a-popconfirm>
               <a-popconfirm 
-                @confirm="onFindRivalsConfirm(false)" 
                 ok-text="确定" 
-                cancel-text="取消">
+                cancel-text="取消" 
+                @confirm="onFindRivalsConfirm(false)"
+              >
                 <template slot="title">
                   <div style="max-width: 20vw">
                     搜索品级与类型
-                    <br >
+                    <br>
                     <!-- <a-checkbox v-model="findRivalOptionCheckBaBai" style="color:red;">八败(容易卡死慎选)</a-checkbox> -->
                     <a-checkbox-group
                       v-model="findRivalFilters"
                       :options="findRivalOptions"
-                      :defaultValue="findRivalOptionsDefault"
+                      :default-value="findRivalOptionsDefault"
                     />
-                    <a-checkbox v-model="searchMomentum">气势型</a-checkbox>
-                    <a-checkbox v-model="searchPlier">牙钳型</a-checkbox>
-                    <a-checkbox v-model="searchWresling">角力型</a-checkbox>
-                    <a-checkbox v-model="searchAverage">均衡型</a-checkbox>
-                </div></template
-                >
+                    <a-checkbox v-model="searchMomentum">
+                      气势型
+                    </a-checkbox>
+                    <a-checkbox v-model="searchPlier">
+                      牙钳型
+                    </a-checkbox>
+                    <a-checkbox v-model="searchWresling">
+                      角力型
+                    </a-checkbox>
+                    <a-checkbox v-model="searchAverage">
+                      均衡型
+                    </a-checkbox>
+                  </div>
+                </template>
                 <a-button 
                   :disabled="isFightButtonDisabled" 
-                  type="primary">找克星</a-button>
+                  type="primary"
+                >
+                  找克星
+                </a-button>
               </a-popconfirm>
             </a-button-group>
-            <br >
+            <br>
             <a-button 
               :disabled="isFightButtonDisabled" 
-              @click="restoreCricketStatus" 
-              type="default"
-            >还原促织状态</a-button
+              type="default" 
+              @click="restoreCricketStatus"
             >
+              还原促织状态
+            </a-button>
           </div>
           <div class="battle-result">
             <div class="score-board">
@@ -160,12 +205,15 @@
           <CricketCardComponent
             v-if="cricketAway"
             :cricket="cricketAway"
-            :refreshToken="refreshTokenAway"
+            :refresh-token="refreshTokenAway"
             side="blue"
           />
           <div 
             v-if="!cricketAway" 
-            class="drop-box">从左边列表拖动促织至此区域</div>
+            class="drop-box"
+          >
+            从左边列表拖动促织至此区域
+          </div>
         </div>
       </div>
     </div>
@@ -176,11 +224,13 @@
         <a-timeline>
           <a-timeline-item 
             v-for="(round, idx1) in gameRecords" 
-            :key="idx1">
+            :key="idx1"
+          >
             <p 
               v-for="(item, idx2) in round" 
-              v-html="item.message" 
-              :key="idx2" />
+              :key="idx2" 
+              v-html="item.message"
+            />
           </a-timeline-item>
         </a-timeline>
       </div>
