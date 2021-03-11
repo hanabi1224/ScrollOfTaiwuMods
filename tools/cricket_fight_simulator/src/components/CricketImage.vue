@@ -2,7 +2,8 @@
   <div :style="styles">
     <img 
       :class="imageClass" 
-      src="./../assets/images/0.gif" >
+      src="./../assets/images/0.gif"
+    >
   </div>
 </template>
 
