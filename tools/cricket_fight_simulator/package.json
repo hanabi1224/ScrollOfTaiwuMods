@@ -35,7 +35,6 @@
     "eslint": "^7.25.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-vue": "^7.9.0",
-    "node-forge": "^0.10.0",
     "parcel-bundler": "^1.12.5",
     "prettier": "^2.2.1",
     "sass": "^1.32.11",
