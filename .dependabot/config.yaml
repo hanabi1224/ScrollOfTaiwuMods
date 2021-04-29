@@ -1,5 +1,0 @@
-version: 1
-update_configs:
-  - package_manager: "javascript"
-    directory: "/tools/cricket_fight_simulator"
-    update_schedule: "live"
