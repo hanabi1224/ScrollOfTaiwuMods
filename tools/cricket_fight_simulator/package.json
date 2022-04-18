@@ -16,7 +16,7 @@
     "ant-design-vue": "^1.7.8",
     "body-scroll-lock": "^3.1.5",
     "lodash": "^4.17.21",
-    "vue": "^2.6.14",
+    "vue": "^3.2.33",
     "vue-class-component": "^7.2.6",
     "vue-draggable": "^2.0.6",
     "vue-hot-reload-api": "^2.3.4",
