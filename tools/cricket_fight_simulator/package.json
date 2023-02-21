@@ -27,7 +27,7 @@
     "@babel/preset-env": "^7.16.11",
     "@types/body-scroll-lock": "^3.1.0",
     "@types/lodash": "^4.14.181",
-    "@typescript-eslint/eslint-plugin": "^5.19.0",
+    "@typescript-eslint/eslint-plugin": "^5.53.0",
     "@typescript-eslint/parser": "^5.19.0",
     "@vue/component-compiler-utils": "^3.3.0",
     "eslint": "^8.13.0",
